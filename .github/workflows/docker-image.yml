@@ -25,3 +25,37 @@ jobs:
       with:
         scan-type: image
         image-ref: vamshi/hello-app
+name: Docker Build & Trivy Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t vamshi/hello-app .
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.1_Linux-64bit.deb -O trivy.deb
+          sudo dpkg -i trivy.deb
+
+      - name: Run Trivy scan
+        run: trivy image vamshi/hello-app
+
+      # - name: Push to Docker Hub (Disabled while Docker is down)
+      #   run: echo "Skipping push due to Docker Hub issues"
