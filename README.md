@@ -37,3 +37,27 @@ The Docker image `vamshi/hello-app` was scanned using [Trivy](https://github.com
 - **CVE-2025-47273** — setuptools (HIGH): Path traversal in PackageIndex
 
 > ⚠️ Please keep dependencies up to date and monitor CVEs regularly.
+---
+
+## ✅ Security Summary
+
+### 🔍 Trivy Results
+- Scanned Docker image: `vamshi/hello-app`
+- Detected vulnerabilities:
+  - `CVE-2024-6345`: Path traversal in `setuptools`
+  - `CVE-2025-47273`: Path traversal in `PackageIndex`
+- Trivy scan was automated via GitHub Actions
+
+### 🔐 Snyk Results
+- Snyk scanned `requirements.txt`
+- No known vulnerabilities found in installed packages
+
+---
+
+## 🚀 CI/CD Integration
+
+- GitHub Actions workflow configured:
+  - ✅ Docker image build
+  - ✅ Trivy vulnerability scan
+  - ✅ Snyk dependency scan
+- All scans triggered on every `push` and `pull_request` to the `main` branch
